@@ -28,10 +28,10 @@ lesspipe() {
 	case "$1" in
 	*.tar) tar tvvf "$1" ;;
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
-	*.tar.bz2) bzcat "$1" | tar tvvf - ;;
-	*.[Zz]|*.gz) gzip -dc "$1" ;;
-	*.bz) bzip -dc "$1" ;;
-	*.bz2) bzip2 -dc "$1" ;;
+	*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
+	*.[Zz]|*.gz) gzip -dc -- "$1" ;;
+	*.bz) bzip -dc -- "$1" ;;
+	*.bz2) bzip2 -dc -- "$1" ;;
 	*.zip) unzip -l "$1" ;;
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
 	*.cpi|*.cpio) cpio -itv < "$1" ;;
