@@ -28,7 +28,7 @@ lesspipe() {
 	case "$1" in
 	*.tar) tar tvvf "$1" ;;
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
-	*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
+	*.tbz2|*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
 	*.[Zz]|*.gz) gzip -dc -- "$1" ;;
 	*.bz) bzip -dc -- "$1" ;;
 	*.bz2) bzip2 -dc -- "$1" ;;
