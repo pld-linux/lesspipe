@@ -35,6 +35,7 @@ lesspipe() {
 	*.Z) gzip -dc "$1"  2>/dev/null ;; # View compressed files correctly
 	*.z) gzip -dc "$1"  2>/dev/null ;;
 	*.gz) gzip -dc "$1"  2>/dev/null ;;
+	*.bz) bzip -dc "$1" 2>/dev/null ;;
 	*.bz2) bzip2 -dc "$1" 2>/dev/null ;;
 	*.zip) unzip -l "$1" 2>/dev/null ;;
 	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man) FILE=`file -L "$1"` ; # groff src
