@@ -34,7 +34,7 @@ lesspipe() {
 	*.bz2) bzip2 -dc -- "$1" ;;
 	*.zip|*.jar) unzip -l "$1" ;;
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
-	*.rar) unrar l -- "$1" ;;
+	*.rar) unrar -p- l -- "$1" ;;
 	*.cpi|*.cpio) cpio -itv < "$1" ;;
 	# SSL CERTS
 	*.csr) openssl req -noout -text -in "$1" ;;
