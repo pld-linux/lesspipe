@@ -31,7 +31,7 @@ lesspipe() {
 	*.tar.gz) tar tzvvf "$1" 2>/dev/null ;;
 	*.tar.Z) tar tzvvf "$1" 2>/dev/null ;;
 	*.tar.z) tar tzvvf "$1" 2>/dev/null ;;
-	*.tar.bz2) tar tjvvf "$1" 2>/dev/null ;;
+	*.tar.bz2) bzcat "$1" | tar tvvf " 2>/dev/null ;;
 	*.Z) gzip -dc "$1"  2>/dev/null ;; # View compressed files correctly
 	*.z) gzip -dc "$1"  2>/dev/null ;;
 	*.gz) gzip -dc "$1"  2>/dev/null ;;
