@@ -37,6 +37,7 @@ lesspipe() {
 	*.cpi|*.cpio) cpio -itv < "$1" ;;
 	# SSL CERTS
 	*.csr) openssl req -noout -text -in "$1" ;;
+	*.crl) openssl crl -noout -text -in "$1" ;;
 	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man) FILE=`file -L "$1"` ; # groff src
 		FILE=`echo $FILE | cut -d ' ' -f 2`
 		if [ "$FILE" = "troff" ]; then
