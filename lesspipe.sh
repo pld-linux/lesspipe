@@ -46,4 +46,8 @@ lesspipe() {
   esac
 }
 
-lesspipe "$1" 2>/dev/null
+if [ -d "$1" ] ; then
+	/bin/ls -alF -- "$1"
+else
+	lesspipe "$1" 2> /dev/null
+fi
