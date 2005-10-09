@@ -26,7 +26,7 @@
 
 lesspipe() {
 	case "$1" in
-	*.tar) tar tvvf "$1" ;;
+	*.tar|*.phar) tar tvvf "$1" ;;
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
 	*.tbz2|*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
 	*.[Zz]|*.gz) gzip -dc -- "$1" ;;
@@ -36,10 +36,11 @@ lesspipe() {
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
 	*.rar) unrar -p- l -- "$1" ;;
 	*.cpi|*.cpio) cpio -itv < "$1" ;;
-	# SSL CERTS
+	# SSL certs
 	*.csr) openssl req -noout -text -in "$1" ;;
 	*.crl) openssl crl -noout -text -in "$1" ;;
 	*.crt) openssl x509 -noout -text -in "$1" ;;
+	# Possible manual pages
 	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man) FILE=`file -L "$1"` ; # groff src
 		FILE=`echo $FILE | cut -d ' ' -f 2`
 		if [ "$FILE" = "troff" ]; then
