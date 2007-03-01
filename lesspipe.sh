@@ -44,6 +44,8 @@ lesspipe() {
 	*.csr) openssl req -noout -text -in "$1" ;;
 	*.crl) openssl crl -noout -text -in "$1" ;;
 	*.crt) openssl x509 -noout -text -in "$1" ;;
+	# gnupg armored files
+	*.asc) gpg --homedir=/dev/null "$1" 2>/dev/null ;;
 	# Possible manual pages
 	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man) FILE=`file -L "$1"` ; # groff src
 		FILE=`echo $FILE | cut -d ' ' -f 2`
