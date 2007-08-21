@@ -30,6 +30,7 @@ lesspipe() {
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
 	*.tbz2|*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
 	*.[Zz]|*.gz) gzip -dc -- "$1" ;;
+	*.7z) 7z l "$1" ;;
 	*.bz) bzip -dc -- "$1" ;;
 	*.bz2) bzip2 -dc -- "$1" ;;
 	*.lzma) lzma d -so -- "$1" ;;
