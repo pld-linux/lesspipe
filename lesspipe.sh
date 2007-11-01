@@ -38,6 +38,7 @@ lesspipe() {
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
 	*.rar) unrar -p- l -- "$1" ;;
 	*.cpi|*.cpio) cpio -itv < "$1" ;;
+	*.cab) cabextract -l -- "$1" ;;
 	*.deb) dpkg -c "$1" ;;
 	# .war could be Zip (limewire) or tar.gz file (konqueror web archives)
 	*.war) 7z l "$1" || unzip -l "$1" || tar tzvvf "$1" ;;
