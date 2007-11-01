@@ -6,6 +6,7 @@ License:	GPL v2
 Group:		Applications/Text
 Source0:	%{name}.sh
 BuildRequires:	rpmbuild(macros) >= 1.316
+Requires:	file
 Conflicts:	less < 394-7.1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
