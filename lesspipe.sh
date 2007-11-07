@@ -26,6 +26,25 @@
 
 lesspipe() {
 	case "$1" in
+	# possible initrd images
+	*initrd-*.gz)
+		if [[ $(file -z "$1" 2>/dev/null) == *cpio?archive* ]]; then
+			echo "initrd contents:"
+			local out=$(gzip -dc "$1" | cpio -itv --quiet)
+			echo "$out"
+
+			# also display linuxrc
+			if [[ "$out" == *linuxrc* ]] ;then
+				echo ""
+				echo "/linuxrc program:"
+				local tmp=$(mktemp -d)
+				gzip -dc "$1" | (cd $tmp && cpio -dimu --quiet)
+				cat $tmp/linuxrc
+				rm -rf $tmp
+			fi
+		fi
+	;;
+
 	*.tar|*.phar) tar tvvf "$1" ;;
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
 	*.tbz2|*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
