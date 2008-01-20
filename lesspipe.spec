@@ -1,4 +1,5 @@
-Summary:	input preprocessor for less
+Summary:	Input preprocessor for less
+Summary(pl.UTF-8):	Preprocesor wejścia dla narzędzia less
 Name:		lesspipe
 Version:	1.0
 Release:	2
@@ -12,13 +13,22 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-input preprocessor for less.
+lesspipe is an input preprocessor for less.
 
 Before less opens a file, it first gives your input preprocessor a
 chance to modify the way the contents of the file are displayed.
 
 This package contains PLD Linux script to display various archive
 contents in human readable way.
+
+%description -l pl.UTF-8
+lesspipe to preprocesor wejścia dla narzędzia less.
+
+Zanim less otworzy plik, najpierw pozwala preprocesorowi zmodyfikować
+sposób wyświetlania pliku.
+
+Ten pakiet zawiera skrypt z PLD Linuksa wyświetlający zawartość
+różnych archiwów w sposób czytelny dla człowieka.
 
 %prep
 
