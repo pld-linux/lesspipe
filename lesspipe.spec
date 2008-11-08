@@ -1,8 +1,7 @@
-%define		rev	%(awk '/Id.*Exp/{print $4}' %{SOURCE0} 2>/dev/null || echo ERROR)
 Summary:	Input preprocessor for less
 Summary(pl.UTF-8):	Preprocesor wejścia dla narzędzia less
 Name:		lesspipe
-Version:	%{rev}
+Version:	1.32
 Release:	1
 License:	GPL v2
 Group:		Applications/Text
@@ -32,6 +31,11 @@ Ten pakiet zawiera skrypt z PLD Linuksa wyświetlający zawartość
 różnych archiwów w sposób czytelny dla człowieka.
 
 %prep
+rev=$(awk '/Id.*Exp/{print $4}' %{SOURCE0})
+if [ "$rev" != "%{version}" ]; then
+	: define version to $rev
+	exit 1
+fi
 
 %install
 rm -rf $RPM_BUILD_ROOT
