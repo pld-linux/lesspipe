@@ -20,6 +20,7 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+# $Id$'
 
 # This is a preprocessor for 'less'.  It is used when this environment
 # variable is set:   LESSOPEN="|lesspipe.sh %s"
