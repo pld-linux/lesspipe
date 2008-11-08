@@ -46,6 +46,7 @@ lesspipe() {
 	;;
 
 	*.tar|*.phar) tar tvvf "$1" ;;
+	*.tar.lzma) lzma -dc -- "$1" | tar tvvf - ;;
 	*.a) ar tvf "$1" ;;
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
 	*.tbz2|*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
