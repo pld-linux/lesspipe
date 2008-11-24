@@ -1,13 +1,13 @@
 Summary:	Input preprocessor for less
 Summary(pl.UTF-8):	Preprocesor wejścia dla narzędzia less
 Name:		lesspipe
-Version:	1.32
+Version:	1.33
 Release:	1
 License:	GPL v2
 Group:		Applications/Text
 Source0:	%{name}.sh
 BuildRequires:	rpmbuild(macros) >= 1.316
-Requires:	file
+Suggests:	file
 Conflicts:	less < 394-7.1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
