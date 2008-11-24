@@ -71,13 +71,17 @@ lesspipe() {
 	# gnupg armored files
 	*.asc) gpg --homedir=/dev/null "$1" 2>/dev/null ;;
 	# Possible manual pages
-	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man) FILE=`file -L "$1"` ; # groff src
-		FILE=`echo $FILE | cut -d ' ' -f 2`
+	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man)
+		FILE=$(file -L "$1") # groff src
+		FILE=$(echo $FILE | cut -d ' ' -f 2)
 		if [ "$FILE" = "troff" ]; then
 			groff -s -p -t -e -Tlatin1 -mandoc "$1"
-		fi ;;
-	*) FILE=`file -L "$1"` ; # Check to see if binary, if so -- view with 'strings'
-  esac
+		fi
+		;;
+	*)
+   	# Check to see if binary, if so -- view with 'strings'
+   	# FILE=$(file -L "$1")
+	esac
 }
 
 if [ -d "$1" ] ; then
