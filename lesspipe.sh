@@ -56,7 +56,7 @@ lesspipe() {
 	*.bz) bzip -dc -- "$1" ;;
 	*.bz2) bzip2 -dc -- "$1" ;;
 	*.lzma) lzma d -so -- "$1" ;;
-	*.zip|*.jar|*.xpi|*.pk3|*.skz) 7z l "$1" || unzip -l "$1" ;;
+	*.zip|*.jar|*.xpi|*.pk3|*.skz|*.gg) 7z l "$1" || unzip -l "$1" ;;
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
 	*.rar) unrar -p- l -- "$1" ;;
 	*.cpi|*.cpio) cpio -itv < "$1" ;;
