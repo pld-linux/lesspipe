@@ -58,7 +58,7 @@ lesspipe() {
 	*.lzma) lzma d -so -- "$1" ;;
 	*.zip|*.jar|*.xpi|*.pk3|*.skz|*.gg) 7z l "$1" || unzip -l "$1" ;;
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
-	*.rar) unrar -p- l -- "$1" ;;
+	*.rar) unrar -p- vb -- "$1" ;;
 	*.cpi|*.cpio) cpio -itv < "$1" ;;
 	*.cab|*.CAB) cabextract -l -- "$1" ;;
 	*.deb) dpkg -c "$1" ;;
