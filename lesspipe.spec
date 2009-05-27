@@ -1,3 +1,7 @@
+#
+# TODO:		consider mainstream version (with code2color etc.):
+#		http://www-zeuthen.desy.de/~friebel/unix/lesspipe.html
+#
 Summary:	Input preprocessor for less
 Summary(pl.UTF-8):	Preprocesor wejścia dla narzędzia less
 Name:		lesspipe
@@ -40,7 +44,7 @@ fi
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},/etc/env.d}
-install %{SOURCE0}  $RPM_BUILD_ROOT%{_bindir}
+install %{SOURCE0} $RPM_BUILD_ROOT%{_bindir}
 
 # Prepare env file
 cat > $RPM_BUILD_ROOT/etc/env.d/LESSOPEN <<'EOF'
