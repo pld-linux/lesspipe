@@ -78,7 +78,11 @@ lesspipe() {
 			groff -s -p -t -e -Tlatin1 -mandoc "$1"
 		fi
 		;;
-	*) run-mailcap "$1" || highlight --xterm256 --style=darkblue "$1"
+	*) case $TERM in
+		xterm|xterm-color)	output=xterm256;;
+		*)			output=ansi;;
+	   esac
+		run-mailcap "$1" || highlight --$output --style=darkblue "$1"
    	# Check to see if binary, if so -- view with 'strings'
    	# FILE=$(file -L "$1")
 	esac
