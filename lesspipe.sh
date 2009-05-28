@@ -82,7 +82,8 @@ lesspipe() {
 		xterm|xterm-color)	output=xterm256;;
 		*)			output=ansi;;
 	   esac
-		run-mailcap "$1" || highlight --$output --style=darkblue "$1"
+		run-mailcap "$1" || \
+		{ echo $LESS | grep -qi r || ps -p `ps -p $PPID -oppid=` -oargs= | grep -qiw -- -r && highlight --$output --style=darkblue "$1"; }
    	# Check to see if binary, if so -- view with 'strings'
    	# FILE=$(file -L "$1")
 	esac
