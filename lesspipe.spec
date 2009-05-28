@@ -12,6 +12,8 @@ Group:		Applications/Text
 Source0:	%{name}.sh
 BuildRequires:	rpmbuild(macros) >= 1.316
 Suggests:	file
+Suggests:	highlight
+Suggests:	mailcap
 Conflicts:	less < 394-7.1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
