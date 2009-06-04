@@ -79,7 +79,7 @@ lesspipe() {
 		fi
 		;;
 	*) case $TERM in
-		xterm|xterm-color)	output=xterm256;;
+		xterm|xterm-color|xterm*88color|xterm*256color)	output=xterm256;;
 		*)			output=ansi;;
 	   esac
 		run-mailcap "$1" || \
