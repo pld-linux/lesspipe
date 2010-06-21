@@ -47,7 +47,7 @@ lesspipe() {
 	;;
 
 	*.tar|*.phar) tar tvvf "$1" ;;
-	*.tar.lzma) lzma -dc -- "$1" | tar tvvf - ;;
+	*.tar.lzma|*.tar.xz) lzma -dc -- "$1" | tar tvvf - ;;
 	*.a) ar tvf "$1" ;;
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
 	*.tbz2|*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
@@ -56,7 +56,7 @@ lesspipe() {
 	*.7z) 7z l "$1" ;;
 	*.bz) bzip -dc -- "$1" ;;
 	*.bz2) bzip2 -dc -- "$1" ;;
-	*.lzma) lzma d -so -- "$1" ;;
+	*.lzma|*.xz) lzma -dc -- "$1" ;;
 	*.zip|*.jar|*.xpi|*.pk3|*.skz|*.gg) 7z l "$1" || unzip -l "$1" ;;
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
 	*.rar) unrar -p- vb -- "$1" ;;
