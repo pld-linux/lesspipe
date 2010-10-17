@@ -1,11 +1,11 @@
 #
-# TODO:		consider mainstream version (with code2color etc.):
+# TODO:		consider this version (with code2color etc.):
 #		http://www-zeuthen.desy.de/~friebel/unix/lesspipe.html
 #
 Summary:	Input preprocessor for less
 Summary(pl.UTF-8):	Preprocesor wejścia dla narzędzia less
 Name:		lesspipe
-Version:	1.42
+Version:	1.43
 Release:	1
 License:	GPL v2
 Group:		Applications/Text
@@ -15,6 +15,7 @@ Suggests:	file
 Suggests:	highlight
 Suggests:	mailcap >= 2.3
 Conflicts:	less < 394-7.1
+Conflicts:	tar < 1:1.22
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
