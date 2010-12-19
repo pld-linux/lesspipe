@@ -25,25 +25,61 @@
 # This is a preprocessor for 'less'.  It is used when this environment
 # variable is set:   LESSOPEN="|lesspipe.sh %s"
 
+# attempt to reveal info about initrd image
+initrd() {
+	local ft=$(file "$1" 2>/dev/null) dec tmp ft2
+
+	case "$ft" in
+	*LZMA?compressed?data*)
+		dec="lzma -dc"
+		;;
+	*gzip?compressed?data*)
+		dec="gzip -dc"
+		;;
+	*data*)
+		dec="xz -dc"
+		;;
+	esac
+
+	[ "$ft" ] || return 1
+	tmp=$(mktemp -d) || return 1
+	$dec "$1" > $tmp/initrd.img || {
+		rm -rf $tmp
+		return 1
+	}
+
+	ft2=$(file $tmp/initrd.img 2>/dev/null)
+	echo "$ft:${ft2#$tmp/initrd.img:}"
+	case "$ft2" in
+	*cpio?archive*)
+		;;
+	*)
+		rm -rf $tmp
+		return 0
+		;;
+	esac
+
+	local out=$(cpio -itv --quiet < $tmp/initrd.img)
+	echo "initrd contents:"
+	echo "$out"
+
+	# also display linuxrc
+	if [[ "$out" == *linuxrc* ]] ;then
+		echo ""
+		echo "/linuxrc program:"
+		(cd $tmp && cpio -dimu --quiet < $tmp/initrd.img)
+		cat $tmp/linuxrc
+	fi
+
+	rm -rf $tmp
+	return 0
+}
+
 lesspipe() {
 	case "$1" in
 	# possible initrd images
 	*initrd-*.gz)
-		if [[ $(file -z "$1" 2>/dev/null) == *cpio?archive* ]]; then
-			echo "initrd contents:"
-			local out=$(gzip -dc "$1" | cpio -itv --quiet)
-			echo "$out"
-
-			# also display linuxrc
-			if [[ "$out" == *linuxrc* ]] ;then
-				echo ""
-				echo "/linuxrc program:"
-				local tmp=$(mktemp -d)
-				gzip -dc "$1" | (cd $tmp && cpio -dimu --quiet)
-				cat $tmp/linuxrc
-				rm -rf $tmp
-			fi
-		fi
+		initrd "$1" && return 0
 	;;
 
 	*.tar|*.phar) tar tvvf "$1" ;;
@@ -79,14 +115,18 @@ lesspipe() {
 			groff -s -p -t -e -Tlatin1 -mandoc "$1"
 		fi
 		;;
-	*) case $TERM in
-		xterm|xterm-color|xterm*88color|xterm*256color)	output=xterm256;;
-		*)			output=ansi;;
-	   esac
-		run-mailcap "$1" || \
-		{ echo $LESS | grep -qi r || ps -p `ps -p $PPID -oppid=` -oargs= | grep -qiw -- -r && highlight --$output --style=darkblue "$1"; }
-   	# Check to see if binary, if so -- view with 'strings'
-   	# FILE=$(file -L "$1")
+	*)
+		case $TERM in
+		xterm|xterm-color|xterm*88color|xterm*256color)
+			output=xterm256;;
+		*)
+			output=ansi;;
+		esac
+		run-mailcap "$1" || {
+			echo "$LESS" | grep -qi r || ps -p $(ps -p $PPID -oppid=) -oargs= | grep -qiw -- -r && highlight --$output --style=darkblue "$1";
+		}
+	# Check to see if binary, if so -- view with 'strings'
+	# FILE=$(file -L "$1")
 	esac
 }
 
