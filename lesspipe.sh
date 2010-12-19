@@ -52,6 +52,12 @@ initrd() {
 	echo "$ft:${ft2#$tmp/initrd.img:}"
 	case "$ft2" in
 	*cpio?archive*)
+		install -d $tmp/initrd
+		(cd $tmp/initrd && cpio -dimu --quiet < $tmp/initrd.img)
+		;;
+	*romfs?filesystem*)
+		install -d $tmp/initrd
+		mount -ro loop $tmp/initrd.img $tmp/initrd
 		;;
 	*)
 		rm -rf $tmp
@@ -59,17 +65,16 @@ initrd() {
 		;;
 	esac
 
-	local out=$(cpio -itv --quiet < $tmp/initrd.img)
-	echo "initrd contents:"
-	echo "$out"
+	(cd $tmp/initrd; ls -lR)
 
 	# also display linuxrc
-	if [[ "$out" == *linuxrc* ]] ;then
+	if [ -f $tmp/initrd/linuxrc ]; then
 		echo ""
 		echo "/linuxrc program:"
-		(cd $tmp && cpio -dimu --quiet < $tmp/initrd.img)
-		cat $tmp/linuxrc
+		cat $tmp/initrd/linuxrc
 	fi
+
+	mountpoint -q $tmp/initrd && umount $tmp/initrd
 
 	rm -rf $tmp
 	return 0
