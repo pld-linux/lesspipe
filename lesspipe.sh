@@ -110,6 +110,7 @@ lesspipe() {
 	*.csr) openssl req -noout -text -in "$1" ;;
 	*.crl) openssl crl -noout -text -in "$1" ;;
 	*.crt) openssl x509 -noout -text -in "$1" ;;
+	*.p7s) openssl pkcs7 -noout -text -in "$1" -print_certs -inform DER;;
 	# gnupg armored files
 	*.asc) gpg --homedir=/dev/null "$1" 2>/dev/null ;;
 	# Possible manual pages
