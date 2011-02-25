@@ -121,6 +121,12 @@ lesspipe() {
 			groff -s -p -t -e -Tlatin1 -mandoc "$1"
 		fi
 		;;
+	# possible sqlite3
+	*.db)
+		FILE=$(file -bL "$1")
+		FILE=$(echo $FILE | cut -d , -f 1)
+		[ "$FILE" = "SQLite 3.x database" ] && sqlite3 "$1" .dump
+		;;
 	*)
 		case $TERM in
 		xterm|xterm-color|xterm*88color|xterm*256color)
