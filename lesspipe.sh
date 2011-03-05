@@ -27,7 +27,7 @@
 
 # attempt to reveal info about initrd image
 initrd() {
-	local ft=$(file "$1" 2>/dev/null) dec tmp ft2
+	local ft=$(file "$1") dec tmp ft2
 
 	case "$ft" in
 	*LZMA?compressed?data*)
@@ -48,7 +48,7 @@ initrd() {
 		return 1
 	}
 
-	ft2=$(file $tmp/initrd.img 2>/dev/null)
+	ft2=$(file $tmp/initrd.img)
 	echo "$ft:${ft2#$tmp/initrd.img:}"
 	case "$ft2" in
 	*cpio?archive*)
@@ -112,7 +112,7 @@ lesspipe() {
 	*.crt) openssl x509 -noout -text -in "$1" ;;
 	*.p7s) openssl pkcs7 -noout -text -in "$1" -print_certs -inform DER;;
 	# gnupg armored files
-	*.asc) gpg --homedir=/dev/null "$1" 2>/dev/null ;;
+	*.asc) gpg --homedir=/dev/null "$1" ;;
 	# Possible manual pages
 	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man)
 		FILE=$(file -L "$1") # groff src
