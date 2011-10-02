@@ -87,7 +87,7 @@ lesspipe() {
 		initrd "$1" && return 0
 	;;
 
-	*.tar|*.phar) tar tvvf "$1" ;;
+	*.tar) tar tvvf "$1" ;;
 	*.tar.lzma|*.tar.xz) tar tJvvf "$1" ;;
 	*.a) ar tvf "$1" ;;
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
@@ -99,6 +99,7 @@ lesspipe() {
 	*.bz2) bzip2 -dc -- "$1" ;;
 	*.lzma|*.xz) xz -dc -- "$1" || lzma -dc -- "$1" ;;
 	*.zip|*.jar|*.xpi|*.pk3|*.skz|*.gg|*.ipa) 7z l "$1" || unzip -l "$1" ;;
+	*.phar) phar info -f "$1"; phar list -f "$1" ;;
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
 	*.rar) unrar -p- vb -- "$1" ;;
 	*.cpi|*.cpio) cpio -itv < "$1" ;;
