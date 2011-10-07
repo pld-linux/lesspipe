@@ -87,7 +87,7 @@ lesspipe() {
 		initrd "$1" && return 0
 	;;
 
-	*.tar) tar tvvf "$1" ;;
+	*.tar|*.ova) tar tvvf "$1" ;;
 	*.tar.lzma|*.tar.xz) tar tJvvf "$1" ;;
 	*.a) ar tvf "$1" ;;
 	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
