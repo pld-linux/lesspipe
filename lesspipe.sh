@@ -87,26 +87,29 @@ lesspipe() {
 		initrd "$1" && return 0
 	;;
 
-	*.tar|*.ova) tar tvvf "$1" ;;
-	*.tar.lzma|*.tar.xz) tar tJvvf "$1" ;;
-	*.a) ar tvf "$1" ;;
-	*.tgz|*.tar.gz|*.tar.[Zz]) tar tzvvf "$1" ;;
-	*.tbz2|*.tar.bz2) bzip2 -dc -- "$1" | tar tvvf - ;;
-	*.cpio.gz) gzip -dc -- "$1" | cpio -itv ;;
-	*.[Zz]|*.gz) gzip -dc -- "$1" ;;
+	# archives
 	*.7z) 7z l "$1" ;;
+	*.a) ar tvf "$1" ;;
 	*.bz) bzip -dc -- "$1" ;;
+	*.tar.bz2|*.tbz2) bzip2 -dc -- "$1" | tar tvvf - ;;
 	*.bz2) bzip2 -dc -- "$1" ;;
-	*.lzma|*.xz) xz -dc -- "$1" || lzma -dc -- "$1" ;;
-	*.zip|*.jar|*.xpi|*.pk3|*.skz|*.gg|*.ipa) 7z l "$1" || unzip -l "$1" ;;
-	*.phar) phar info -f "$1"; phar list -f "$1" ;;
-	*.rpm) rpm -qpivl --changelog -- "$1" ;;
-	*.rar) unrar -p- vb -- "$1" ;;
-	*.cpi|*.cpio) cpio -itv < "$1" ;;
 	*.cab|*.CAB) cabextract -l -- "$1" ;;
+	*.cpi|*.cpio) cpio -itv < "$1" ;;
+	*.cpio.gz) gzip -dc -- "$1" | cpio -itv ;;
 	*.deb) dpkg -c "$1" ;;
+	*.tar.gz|*.tar.[Zz]|*.tgz) tar tzvvf "$1" ;;
+	*.gz|*.[Zz]) gzip -dc -- "$1" ;;
+	*.tar.lzma|*.tar.xz) tar tJvvf "$1" ;;
+	*.lzma|*.xz) xz -dc -- "$1" || lzma -dc -- "$1" ;;
+	*.phar) phar info -f "$1"; phar list -f "$1" ;;
+	*.rar) unrar -p- vb -- "$1" ;;
+	*.rpm) rpm -qpivl --changelog -- "$1" ;;
+	*.tar|*.ova) tar tvvf "$1" ;;
+	*.zip|*.jar|*.xpi|*.pk3|*.skz|*.gg|*.ipa) 7z l "$1" || unzip -l "$1" ;;
 	# .war could be Zip (limewire) or tar.gz file (konqueror web archives)
 	*.war) 7z l "$1" || unzip -l "$1" || tar tzvvf "$1" ;;
+	# other file types not handled via mailcap (no mimetype)
+	*.rrd) rrdtool info "$1" ;;
 	# SSL certs
 	*.csr) openssl req -noout -text -in "$1" ;;
 	*.crl) openssl crl -noout -text -in "$1" ;;
