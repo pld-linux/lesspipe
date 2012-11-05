@@ -19,8 +19,6 @@
 #  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-# $Id$'
 
 # This is a preprocessor for 'less'.  It is used when this environment
 # variable is set:   LESSOPEN="|lesspipe.sh %s"
@@ -90,7 +88,8 @@ lesspipe() {
 	# archives
 	*.7z) 7z l "$1" ;;
 	*.a) ar tvf "$1" ;;
-	*.bz) bzip -dc -- "$1" ;;
+	*.tar.bz|*.tbz) bzip -d < "$1" | tar tvvf - ;;
+	*.bz) bzip -d < "$1" ;;
 	*.tar.bz2|*.tbz2) bzip2 -dc -- "$1" | tar tvvf - ;;
 	*.bz2) bzip2 -dc -- "$1" ;;
 	*.cab|*.CAB) cabextract -l -- "$1" ;;
