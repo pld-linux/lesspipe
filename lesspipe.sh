@@ -103,7 +103,7 @@ lesspipe() {
 	*.phar) phar info -f "$1"; phar list -f "$1" ;;
 	*.rar) unrar -p- vb -- "$1" ;;
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
-	*.tar|*.ova) tar tvvf "$1" ;;
+	*.tar|*.ova|*.gem) tar tvvf "$1" ;;
 	*.sqf) unsquashfs -d . -ll "$1" ;;
 	*.zip|*.jar|*.xpi|*.[hj]pi|*.pk3|*.skz|*.gg|*.ipa) 7z l "$1" || unzip -l "$1" ;;
 	# .war could be Zip (limewire) or tar.gz file (konqueror web archives)
