@@ -78,6 +78,14 @@ initrd() {
 	return 0
 }
 
+# display library info
+# DT_NEEDED, SONAME etc
+library_info() {
+	local file="$1"
+
+	objdump -p "$file"
+}
+
 lesspipe() {
 	case "$1" in
 	# possible initrd images
@@ -117,6 +125,7 @@ lesspipe() {
 	*.p7s) openssl pkcs7 -noout -text -in "$1" -print_certs -inform DER;;
 	# gnupg armored files
 	*.asc) gpg --homedir=/dev/null "$1" ;;
+	*.so) library_info "$1" ;;
 	# Possible manual pages
 	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man)
 		FILE=$(file -L "$1") # groff src
