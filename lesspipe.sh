@@ -113,7 +113,7 @@ lesspipe() {
 	*.rpm) rpm -qpivl --changelog -- "$1" ;;
 	*.tar|*.ova|*.gem) tar tvvf "$1" ;;
 	*.sqf) unsquashfs -d . -ll "$1" ;;
-	*.zip|*.jar|*.xpi|*.[hj]pi|*.pk3|*.skz|*.gg|*.ipa|*.whl) 7z l "$1" || unzip -l "$1" ;;
+	*.zip|*.jar|*.xpi|*.[hj]pi|*.pk3|*.skz|*.gg|*.ipa|*.whl|*.crx) 7z l "$1" || unzip -l "$1" ;;
 	# .war could be Zip (limewire) or tar.gz file (konqueror web archives)
 	*.war) 7z l "$1" || unzip -l "$1" || tar tzvvf "$1" ;;
 	# other file types not handled via mailcap (no mimetype)
