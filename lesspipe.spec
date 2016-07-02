@@ -5,8 +5,8 @@
 Summary:	Input preprocessor for less
 Summary(pl.UTF-8):	Preprocesor wejścia dla narzędzia less
 Name:		lesspipe
-Version:	1.55
-Release:	4
+Version:	1.56
+Release:	1
 License:	GPL v2
 Group:		Applications/Text
 Source0:	%{name}.sh
