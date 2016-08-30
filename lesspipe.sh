@@ -124,7 +124,7 @@ lesspipe() {
 	*.crt) openssl x509 -noout -text -in "$1" ;;
 	*.p7s) openssl pkcs7 -noout -text -in "$1" -print_certs -inform DER;;
 	# gnupg armored files
-	*.asc) gpg --homedir=/dev/null "$1" ;;
+	*.asc) command -v gpg >/dev/null && { gpg -nv --homedir=/dev/null "$1" || : ; } || gpg2 -nv --homedir=/dev/null "$1" ;;
 	*.gpg) gpg -d "$1" ;;
 	*.so) library_info "$1" ;;
 	# Possible manual pages

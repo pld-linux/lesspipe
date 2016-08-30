@@ -12,8 +12,11 @@ Group:		Applications/Text
 Source0:	%{name}.sh
 BuildRequires:	rpmbuild(macros) >= 1.316
 Suggests:	file
+Suggests:	gnupg
 Suggests:	highlight
 Suggests:	mailcap >= 2.3
+Suggests:	objdump
+Suggests:	openssl-tools
 Conflicts:	less < 394-7.1
 Conflicts:	tar < 1:1.22
 BuildArch:	noarch
