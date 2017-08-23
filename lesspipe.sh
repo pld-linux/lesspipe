@@ -149,7 +149,7 @@ lesspipe() {
 			output=ansi;;
 		esac
 		run-mailcap "$1" || {
-			echo "$LESS" | grep -qi r || ps -p $PPID,$(ps -p $PPID -oppid=) -oargs= | grep -qiw -- -r && highlight --$output --style=darkblue "$1";
+			echo "$LESS" | grep -qi r || ps -p $PPID,$(ps -p $PPID -oppid=) -oargs= | grep -qiw -- -r && highlight --out-format=$output --style=darkblue "$1";
 		}
 	# Check to see if binary, if so -- view with 'strings'
 	# FILE=$(file -L "$1")
