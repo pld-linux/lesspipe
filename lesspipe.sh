@@ -127,6 +127,7 @@ lesspipe() {
 	*.asc) command -v gpg >/dev/null && { gpg -nv --homedir=/dev/null "$1" || : ; } || gpg2 -nv --homedir=/dev/null "$1" ;;
 	*.gpg) gpg -d "$1" ;;
 	*.so) library_info "$1" ;;
+	*.ts) dvbsnoop -s ts -hideproginfo -nohexdumpbuffer -tssubdecode -n 1000 -if "$1";;
 	# Possible manual pages
 	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man)
 		FILE=$(file -L "$1") # groff src
