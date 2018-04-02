@@ -134,7 +134,7 @@ lesspipe() {
 		[ "$FILE" = 'troff' ] && groff -s -p -t -e -Tlatin1 -mandoc "$1" || return 1
 		;;
 	# possible sqlite3
-	*.db)
+	*.db|*.sqlite3)
 		FILE=$(file -bL "$1" | cut -d , -f 1)
 		[ "$FILE" = 'SQLite 3.x database' ] && sqlite3 "$1" .dump || return 1
 		;;
@@ -145,8 +145,8 @@ lesspipe() {
 		*)
 			output=ansi;;
 		esac
-		run-mailcap "$1" || {
-			echo "$LESS" | grep -qi r || ps -p $PPID,$(ps -p $PPID -oppid=) -oargs= | grep -qiw -- -r && highlight --out-format=$output --style=darkblue "$1";
+		DISPLAY= run-mailcap --no-pager "$1" || {
+			echo "$LESS" | grep -qi r || ps -p $PPID,$(ps -p $PPID -oppid=) -oargs= | grep -qiw -- -r && highlight --validate-input --no-trailing-nl --out-format=$output --style=darkblue "$1";
 		}
 	# Check to see if binary, if so -- view with 'strings'
 	# FILE=$(file -L "$1")
