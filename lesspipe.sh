@@ -122,25 +122,21 @@ lesspipe() {
 	*.csr) openssl req -noout -text -in "$1" ;;
 	*.crl) openssl crl -noout -text -in "$1" ;;
 	*.crt) openssl x509 -noout -text -in "$1" ;;
-	*.p7s) openssl pkcs7 -noout -text -in "$1" -print_certs -inform DER;;
+	*.p7s) openssl pkcs7 -noout -text -in "$1" -print_certs -inform DER ;;
 	# gnupg armored files
 	*.asc) command -v gpg >/dev/null && { gpg -nv --homedir=/dev/null "$1" || : ; } || gpg2 -nv --homedir=/dev/null "$1" ;;
 	*.gpg) gpg -d "$1" ;;
 	*.so) library_info "$1" ;;
-	*.ts) dvbsnoop -s ts -hideproginfo -nohexdumpbuffer -tssubdecode -n 1000 -if "$1";;
+	*.ts) dvbsnoop -s ts -hideproginfo -nohexdumpbuffer -tssubdecode -n 1000 -if "$1" ;;
 	# Possible manual pages
 	*.1|*.2|*.3|*.4|*.5|*.6|*.7|*.8|*.9|*.l|*.n|*.man)
-		FILE=$(file -L "$1") # groff src
-		FILE=$(echo $FILE | cut -d ' ' -f 2)
-		if [ "$FILE" = "troff" ]; then
-			groff -s -p -t -e -Tlatin1 -mandoc "$1"
-		fi
+		FILE=$(file -L "$1" | cut -d ' ' -f 2) # groff src
+		[ "$FILE" = 'troff' ] && groff -s -p -t -e -Tlatin1 -mandoc "$1" || return 1
 		;;
 	# possible sqlite3
 	*.db)
-		FILE=$(file -bL "$1")
-		FILE=$(echo $FILE | cut -d , -f 1)
-		[ "$FILE" = "SQLite 3.x database" ] && sqlite3 "$1" .dump
+		FILE=$(file -bL "$1" | cut -d , -f 1)
+		[ "$FILE" = 'SQLite 3.x database' ] && sqlite3 "$1" .dump || return 1
 		;;
 	*)
 		case $TERM in
@@ -157,8 +153,8 @@ lesspipe() {
 	esac
 }
 
-if [ -d "$1" ] ; then
+if [ -d "$1" ]; then
 	/bin/ls -alF -- "$1"
-else
+elif [ -f "$1" ]; then
 	lesspipe "$1" 2> /dev/null
 fi
