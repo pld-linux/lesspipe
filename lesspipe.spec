@@ -3,12 +3,12 @@
 Summary:	Input preprocessor for less
 Summary(pl.UTF-8):	Preprocesor wejścia dla narzędzia less
 Name:		lesspipe
-Version:	2.16
+Version:	2.18
 Release:	1
 License:	GPL v2
 Group:		Applications/Text
 Source0:	https://github.com/wofr06/lesspipe/archive/refs/tags/v%{version}.tar.gz
-# Source0-md5:	77c95a5b9668fd93df5f90af6b778750
+# Source0-md5:	f0619d594621a27ed84c4136f14d412f
 URL:		https://www-zeuthen.desy.de/~friebel/unix/lesspipe.html
 BuildRequires:	perl-base
 BuildRequires:	rpmbuild(macros) >= 1.316
