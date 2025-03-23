@@ -7,11 +7,15 @@ Version:	2.18
 Release:	1
 License:	GPL v2
 Group:		Applications/Text
+#Source0Download: https://github.com/wofr06/lesspipe/releases
+# TODO: use named tarballs:
+#Source0:	https://github.com/wofr06/lesspipe/archive/v%{version}/%{name}-%{version}.tar.gz
 Source0:	https://github.com/wofr06/lesspipe/archive/refs/tags/v%{version}.tar.gz
 # Source0-md5:	f0619d594621a27ed84c4136f14d412f
+Patch0:		%{name}-completionsdir.patch
 URL:		https://www-zeuthen.desy.de/~friebel/unix/lesspipe.html
 BuildRequires:	perl-base
-BuildRequires:	rpmbuild(macros) >= 1.316
+BuildRequires:	rpmbuild(macros) >= 1.719
 Suggests:	file
 Suggests:	gnupg
 Suggests:	highlight >= 3.0
@@ -44,6 +48,7 @@ różnych archiwów w sposób czytelny dla człowieka.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+perl(\s|$),#!%{__perl}\1,' \
       archive_color \
@@ -70,7 +75,6 @@ różnych archiwów w sposób czytelny dla człowieka.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT/etc/env.d
 
 %{__make} install \
@@ -92,12 +96,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/%{name}.sh
 %attr(755,root,root) %{_bindir}/archive_color
 %attr(755,root,root) %{_bindir}/code2color
 %attr(755,root,root) %{_bindir}/lesscomplete
+%attr(755,root,root) %{_bindir}/lesspipe.sh
 %attr(755,root,root) %{_bindir}/sxw2txt
 %attr(755,root,root) %{_bindir}/vimcolor
-#%{_datadir}/bash-completion/less_completion
 %{_mandir}/man1/lesspipe.1*
-%config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
+%config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/LESSOPEN
+%{bash_compdir}/less_completion
+%{zsh_compdir}/_less

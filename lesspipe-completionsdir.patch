@@ -1,0 +1,15 @@
+--- lesspipe-2.18/configure.orig	2025-02-16 21:25:26.000000000 +0100
++++ lesspipe-2.18/configure	2025-03-23 12:04:07.106017531 +0100
+@@ -141,10 +141,10 @@ install:
+ 	mkdir -p $(DESTDIR)$(PREFIX)/bin
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/zsh/site-functions
+-	mkdir -p $(DESTDIR)$(PREFIX)/share/bash-completion/
++	mkdir -p $(DESTDIR)$(PREFIX)/share/bash-completion/completions
+ 	cp ./code2color ./sxw2txt ./archive_color ./lesspipe.sh ./vimcolor ./lesscomplete $(DESTDIR)$(PREFIX)/bin
+ 	cp ./lesspipe.1 $(DESTDIR)$(PREFIX)/share/man/man1
+-	cp ./less_completion $(DESTDIR)$(PREFIX)/share/bash-completion/
++	cp ./less_completion $(DESTDIR)$(PREFIX)/share/bash-completion/completions
+ 	cp ./_less $(DESTDIR)$(PREFIX)/share/zsh/site-functions
+ 	chmod 0755 $(DESTDIR)$(PREFIX)/bin/lesspipe.sh
+ 	chmod 0755 $(DESTDIR)$(PREFIX)/bin/sxw2txt
